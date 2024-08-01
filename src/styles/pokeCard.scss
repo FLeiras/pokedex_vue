@@ -1,0 +1,107 @@
+@import "../style.scss";
+
+.container-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 20rem;
+  height: 25rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  margin: 0.5rem;
+}
+
+.normal {
+  background-color: $normal;
+}
+.fire {
+  background-color: $fire;
+}
+.water {
+  background-color: $water;
+}
+.grass {
+  background-color: $grass;
+}
+.electric {
+  background-color: $electric;
+}
+.ice {
+  background-color: $ice;
+}
+.fighting {
+  background-color: $fighting;
+}
+.poison {
+  background-color: $poison;
+}
+.ground {
+  background-color: $ground;
+}
+.flying {
+  background-color: $flying;
+}
+.psychic {
+  background-color: $psychic;
+}
+.bug {
+  background-color: $bug;
+}
+.rock {
+  background-color: $rock;
+}
+.ghost {
+  background-color: $ghost;
+}
+.dark {
+  background-color: $dark;
+}
+.dragon {
+  background-color: $dragon;
+}
+.steel {
+  background-color: $steel;
+}
+.fairy {
+  background-color: $fairy;
+}
+
+.name-card {
+  font-weight: 700;
+}
+
+.type-card {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.type-card li span {
+  text-align: center;
+}
+
+.type-card {
+  & li {
+    width: 5rem;
+    margin: 1rem 1rem 0 0;
+    list-style: none;
+    color: white;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+  }
+}
+
+.image-card {
+  width: 20rem;
+  height: 17rem;
+}
+
+.poke-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}

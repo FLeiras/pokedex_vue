@@ -1,0 +1,29 @@
+#contenedor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: transparent;
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  color: #000;
+}
+
+#contenedor img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.cargando {
+  position: relative;
+  color: black;
+  margin-top: 2em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contenedor-loader {
+  height: 6em;
+}

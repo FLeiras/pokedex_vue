@@ -1,0 +1,20 @@
+.error-container {
+  position: relative;
+  background-image: url("../assets/images/pato2.jpeg");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  min-height: 70vh;
+  text-align: center;
+  padding: 3rem;
+}
+
+.error-container .alert {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1rem;
+}
+
+.error-container .btn {
+  position: relative;
+  z-index: 1;
+}

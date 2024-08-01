@@ -1,0 +1,22 @@
+.landing-page {
+  background-image: url("../../assets/images/landing.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 40rem;
+  height: auto;
+  margin-bottom: 20rem;
+}
+
+.btn-primary {
+  font-size: 28px;
+  padding: 1rem 2rem;
+}

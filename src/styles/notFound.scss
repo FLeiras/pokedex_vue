@@ -1,0 +1,19 @@
+.container-notfound {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../assets/images/notFound_image_2.jpg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+.container-notfound h1, h3 {
+  font-weight: 700;
+  padding-bottom: 5rem;
+}

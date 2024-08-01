@@ -1,0 +1,25 @@
+{
+  "name": "challenge_jemersoft",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "axios": "^1.7.2",
+    "bootstrap": "^5.3.3",
+    "pinia": "^2.2.0",
+    "sass": "^1.77.8",
+    "sweetalert2": "^11.12.3",
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "vite": "^5.3.4"
+  }
+}
