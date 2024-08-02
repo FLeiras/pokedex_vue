@@ -1,9 +1,9 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { usePokemons } from "../composables/usePokemons";
-import { types } from "../helpers/types"
+import { capitalizeFirstLetter } from "../helpers/nameFormat.js"
 
-const { getPokeByName, clearApp, filterByType } = usePokemons();
+const { getPokeByName, clearApp, filterByType, pokemons } = usePokemons();
 
 const pokemon = ref("");
 const selectedType = ref("");
@@ -17,6 +17,13 @@ const searchPokemon = async () => {
     console.error("Failed to search for pokemon:", error);
   }
 };
+
+const types = computed(() => {
+  const allTypes = pokemons.value.flatMap(poke => poke.type);
+  const uniqueTypes = [...new Set(allTypes)].map(type => capitalizeFirstLetter(type));
+  return uniqueTypes;
+});
+console.log(types.value);
 
 const applyFilter = () => {
   filterByType(selectedType.value);
