@@ -1,12 +1,16 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { usePokemons } from "../composables/usePokemons";
 import { capitalizeFirstLetter } from "../helpers/nameFormat.js"
 
-const { getPokeByName, clearApp, filterByType, pokemons } = usePokemons();
+const { getPokeByName, clearApp, filterByType, pokemons, filterByName } = usePokemons();
 
 const pokemon = ref("");
 const selectedType = ref("");
+
+watch(pokemon, (newValue) => {
+  filterByName(newValue);
+});
 
 const searchPokemon = async () => {
   try {
@@ -23,7 +27,6 @@ const types = computed(() => {
   const uniqueTypes = [...new Set(allTypes)].map(type => capitalizeFirstLetter(type));
   return uniqueTypes;
 });
-console.log(types.value);
 
 const applyFilter = () => {
   filterByType(selectedType.value);
@@ -36,18 +39,11 @@ const applyFilter = () => {
       <input
         type="text"
         v-model="pokemon"
+        @keydown.enter="searchPokemon"
         class="form-control"
         placeholder="Ingresa el Pokémon"
         aria-describedby="button-addon2"
       />
-      <button
-        class="btn btn-outline-secondary"
-        type="button"
-        id="button-addon2"
-        @click="searchPokemon"
-      >
-        Buscar
-      </button>
       <select class="form-select ms-5" v-model="selectedType" @change="applyFilter">
         <option value="">All Types</option>
         <option v-for="type in types" :key="type" :value="type">

@@ -1,21 +1,26 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import Loader from "./Loading.vue";
 import PokeCard from "./PokeCard.vue";
 import NavBar from "./NavBar.vue";
 import { usePokemons } from "../composables/usePokemons";
 
-const { loading, error, loadPokemons, paginatedPokemons, clearApp } =
+const { loading, error, loadPokemons, paginatedPokemons, clearApp, filteredPokemons } =
   usePokemons();
 
-const reloadPage = () => {
-  window.location.reload();
+const initPage = () => {
+  clearApp();
+  loadPokemons();
 };
 
 onMounted(async () => {
   clearApp();
   await loadPokemons();
 });
+
+watch(filteredPokemons, (newPokemons) => {
+});
+
 </script>
 
 <template>
@@ -26,7 +31,7 @@ onMounted(async () => {
     <NavBar v-if="!error" />
     <div v-if="error" class="error-container">
       <div class="alert alert-danger m-5" role="alert">{{ error }}</div>
-      <button class="btn btn-primary" @click="reloadPage">
+      <button class="btn btn-primary" @click="initPage">
         Volver al Inicio
       </button>
     </div>

@@ -60,6 +60,11 @@ export const usePokemons = () => {
     }
   };
 
+  //* Metodo que utilizo para el filtrado en tiempo real
+  const filterByName = (name) => {
+    pokemonStore.filterPokemonsByName(name);
+  };
+
   //* Establece la página actual para la paginación.
   const setCurrentPage = (page) => {
     pokemonStore.setCurrentPage(page);
@@ -92,5 +97,6 @@ export const usePokemons = () => {
     getPokeByName,
     filterByType,
     filteredPokemons,
+    filterByName,
   };
 };

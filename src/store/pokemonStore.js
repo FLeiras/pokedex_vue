@@ -48,6 +48,17 @@ export const usePokemonStore = defineStore("pokemon", {
       this.currentPage = 1;
     },
 
+    filterPokemonsByName(name) {
+      if (name === "") {
+        this.filteredPokemons = this.pokemons;
+      } else {
+        this.filteredPokemons = this.pokemons.filter((pokemon) =>
+          pokemon.name.toLowerCase().startsWith(name.toLowerCase())
+        );
+      }
+      this.currentPage = 1;
+    },
+
     async getPokemonById(pokemon) {
       this.loading = true;
       this.error = null;
