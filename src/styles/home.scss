@@ -5,3 +5,24 @@
   background-repeat: no-repeat;
   min-height: 100vh;
 }
+
+@media (max-width: 1280px) {
+  .container-home {
+    background-image: none;
+    margin-left: 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-home {
+    background-image: none;
+    margin-left: 12rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .container-home {
+    background-image: none;
+    margin-left: 0.5rem;
+  }
+}

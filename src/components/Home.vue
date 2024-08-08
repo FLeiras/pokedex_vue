@@ -3,10 +3,10 @@ import { onMounted, watch } from "vue";
 import Loader from "./Loading.vue";
 import PokeCard from "./PokeCard.vue";
 import NavBar from "./NavBar.vue";
-import { usePokemons } from "../composables/usePokemons";
+import { usePokemonsComposition } from "../composables/usePokemonsCompositionApi";
 
 const { loading, error, loadPokemons, paginatedPokemons, clearApp, filteredPokemons } =
-  usePokemons();
+usePokemonsComposition();
 
 const initPage = () => {
   clearApp();
@@ -34,6 +34,11 @@ watch(filteredPokemons, (newPokemons) => {
       <button class="btn btn-primary" @click="initPage">
         Volver al Inicio
       </button>
+    </div>
+    <div v-else-if="paginatedPokemons.length === 0" class="error-container">
+      <div class="row">
+        <div class="alert alert-danger m-1" role="alert">No existe lo que buscas!!</div>
+      </div>
     </div>
     <div v-else class="container-home p-3">
       <div class="row">

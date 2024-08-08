@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const usePokemonStore = defineStore("pokemon", {
   state: () => ({
     pokemons: [],
+    originalOrderPokemons: [],
     filteredPokemons: [],
     pokemonByName: [],
     selectedPokemon: null,
@@ -11,6 +12,7 @@ export const usePokemonStore = defineStore("pokemon", {
     currentPage: 1,
     itemsPerPage: 10,
     filterType: "",
+    sortOrder: "original",
   }),
   getters: {
     paginatedPokemons: (state) => {
@@ -28,7 +30,8 @@ export const usePokemonStore = defineStore("pokemon", {
       this.error = null;
       try {
         this.pokemons = pokemons;
-        this.filteredPokemons = pokemons;
+        this.originalOrderPokemons = [...pokemons];
+        this.applyFiltersAndSort();
       } catch (error) {
         this.error = "Error fetching pokemons: " + error.message;
       } finally {
@@ -38,24 +41,12 @@ export const usePokemonStore = defineStore("pokemon", {
 
     filterPokemonsByType(type) {
       this.filterType = type;
-      if (type === "") {
-        this.filteredPokemons = this.pokemons;
-      } else {
-        this.filteredPokemons = this.pokemons.filter((pokemon) =>
-          pokemon.type.includes(type)
-        );
-      }
+      this.applyFiltersAndSort();
       this.currentPage = 1;
     },
 
     filterPokemonsByName(name) {
-      if (name === "") {
-        this.filteredPokemons = this.pokemons;
-      } else {
-        this.filteredPokemons = this.pokemons.filter((pokemon) =>
-          pokemon.name.toLowerCase().startsWith(name.toLowerCase())
-        );
-      }
+      this.applyFiltersAndSort(name);
       this.currentPage = 1;
     },
 
@@ -85,18 +76,50 @@ export const usePokemonStore = defineStore("pokemon", {
       }
     },
 
+    setSortOrder(order) {
+      this.sortOrder = order;
+      this.applyFiltersAndSort();
+    },
+
+    applyFiltersAndSort(name = "") {
+      let pokemons = [...this.originalOrderPokemons];
+
+      if (this.filterType) {
+        pokemons = pokemons.filter((pokemon) =>
+          pokemon.type.includes(this.filterType)
+        );
+      }
+
+      if (name) {
+        pokemons = pokemons.filter((pokemon) =>
+          pokemon.name.toLowerCase().startsWith(name.toLowerCase())
+        );
+      }
+
+      if (this.sortOrder === "asc") {
+        pokemons.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (this.sortOrder === "desc") {
+        pokemons.sort((a, b) => b.name.localeCompare(a.name));
+      }
+
+      this.filteredPokemons = pokemons;
+    },
+
     setCurrentPage(page) {
       this.currentPage = page;
     },
 
     clearState() {
-      this.pokemons = [], 
+      this.pokemons = [];
+      this.originalOrderPokemons = [];
       this.selectedPokemon = null;
       this.pokemonByName = [];
       this.loading = true;
       this.error = null;
       this.currentPage = 1;
       this.itemsPerPage = 10;
+      this.filterType = "";
+      this.sortOrder = "original";
     },
   },
 });

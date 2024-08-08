@@ -4,14 +4,14 @@ import { computed, onMounted, onUnmounted, ref } from "vue";
 
 import Loader from "./Loading.vue";
 import { capitalizeFirstLetter } from "../helpers/nameFormat.js";
-import { usePokemons } from "../composables/usePokemons.js";
+import { usePokemonsComposition } from "../composables/usePokemonsCompositionApi";
 
 const route = useRoute();
 const router = useRouter();
 const showFullList = ref(false);
 const id = route.params.id;
 const { selectedPokemon, loading, error, pokemonById, clearApp } =
-  usePokemons();
+usePokemonsComposition();
 
 const pokeName = computed(() => {
   return selectedPokemon.value
