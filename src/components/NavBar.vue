@@ -1,9 +1,9 @@
 <script setup>
 import Pagination from "../components/Pagination.vue";
 import SearchPokemon from "../components/SearchPokemon.vue";
-import { usePokemons } from "../composables/usePokemons";
+import { usePokemonsComposition } from "../composables/usePokemonsCompositionApi";
 
-const { clearApp, loadPokemons } = usePokemons();
+const { clearApp, loadPokemons } = usePokemonsComposition();
 
 const allPokemons = () => {
   clearApp();

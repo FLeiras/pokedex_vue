@@ -1,13 +1,11 @@
 import { storeToRefs } from "pinia";
-import { usePokemonStore } from "../store/pokemonStore";
-import {
-  getPokemonsApi,
-  getPokemonByName,
-} from "../services/pokemonApiService";
+import { usePokemonStoreCompositionApi } from "../store/pokemonStoreCompositionApi";
+import { getPokemonsApi, getPokemonByName } from "../services/pokemonApiService";
 import { getPokemonById } from "../services/pokemonDetailService";
+import { handleAsyncOperation } from "../helpers/asyncHelper";
 
-export const usePokemons = () => {
-  const pokemonStore = usePokemonStore();
+export const usePokemonsComposition = () => {
+  const pokemonStore = usePokemonStoreCompositionApi();
   const {
     pokemons,
     selectedPokemon,
@@ -20,40 +18,37 @@ export const usePokemons = () => {
     filteredPokemons,
   } = storeToRefs(pokemonStore);
 
-  const loadPokemons = async () => {
-    try {
-      const pokemonsFromApi = await getPokemonsApi();
-      pokemonStore.getPokemons(pokemonsFromApi);
-    } catch (err) {
-      pokemonStore.error = "Failed to load pokemons";
+  const loadPokemons = () => handleAsyncOperation(
+    getPokemonsApi,
+    (pokemonsFromApi) => pokemonStore.getPokemons(pokemonsFromApi),
+    (err) => {
+      error.value = "Error al cargar los pokémons";
       console.error(err);
     }
-  };
+  );
 
-  const pokemonById = async (id) => {
-    try {
-      const pokemonSelected = await getPokemonById(id);
-      pokemonStore.getPokemonById(pokemonSelected);
-    } catch (err) {
-      pokemonStore.error = "Pokémon no encontrado";
+  const pokemonById = (id) => handleAsyncOperation(
+    () => getPokemonById(id),
+    (pokemonSelected) => pokemonStore.getPokemonById(pokemonSelected),
+    (err) => {
+      error.value = "Pokémon no encontrado";
       console.error(err);
     }
-  };
+  );
+
+  const getPokeByName = (name) => handleAsyncOperation(
+    () => getPokemonByName(name),
+    (pokemonSelected) => pokemonStore.getPokemons([pokemonSelected]),
+    (err) => {
+      error.value = "Pokémon no encontrado";
+      console.error(err);
+    }
+  );
 
   const filterByType = (type) => {
     const lowerCaseType = type.toLowerCase();
     pokemonStore.filterPokemonsByType(lowerCaseType);
     pokemonStore.setCurrentPage(1);
-  };
-
-  const getPokeByName = async (name) => {
-    try {
-      const pokemonSelected = await getPokemonByName(name);
-      pokemonStore.getPokemons([pokemonSelected]);
-    } catch (err) {
-      pokemonStore.error = "Pokémon no encontrado";
-      console.error(err);
-    }
   };
 
   const filterByName = (name) => {
@@ -62,10 +57,6 @@ export const usePokemons = () => {
 
   const setCurrentPage = (page) => {
     pokemonStore.setCurrentPage(page);
-  };
-
-  const getDataPerPage = () => {
-    pokemonStore.paginatedPokemons();
   };
 
   const clearApp = () => {
@@ -83,7 +74,6 @@ export const usePokemons = () => {
     filterByName,
     filterByType,
     filteredPokemons,
-    getDataPerPage,
     getPokeByName,
     itemsPerPage,
     loading,
