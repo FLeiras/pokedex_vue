@@ -23,12 +23,12 @@ Para ejecutar este proyecto en tu máquina local, sigue estos pasos:
 1. **Clona el repositorio**:
 
    ```bash
-   git clone https://github.com/FLeiras/challenge_jemersoft
+   git clone https://github.com/FLeiras/pokedex_vue
    ```
 
 2. **Navegar al directorio del proyecto**
    ```sh
-   cd challenge_jemersoft
+   cd pokedex_vue
    ```
 
 3. **Instalar dependencias**
